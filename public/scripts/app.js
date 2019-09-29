@@ -1,57 +1,38 @@
 "use strict";
 
-console.log("apfp");
+var add = function add(a, b) {
+  //console.log(arguments);
+  return a + b;
+};
 
-/// JSX JavaScript XML
-var template = React.createElement(
-  "div",
-  null,
-  React.createElement(
-    "h1",
-    null,
-    "Indescision App"
-  ),
-  React.createElement(
-    "p",
-    null,
-    "This is some info"
-  ),
-  React.createElement(
-    "ol",
-    null,
-    React.createElement(
-      "li",
-      null,
-      "List Item 1"
-    ),
-    React.createElement(
-      "li",
-      null,
-      "List Item 2"
-    )
-  )
-);
+console.log(add(20, 5, 500));
 
-var templateTwo = React.createElement(
-  "div",
-  null,
-  React.createElement(
-    "h1",
-    null,
-    "Devon Deason"
-  ),
-  React.createElement(
-    "p",
-    null,
-    "Age: 37"
-  ),
-  React.createElement(
-    "p",
-    null,
-    "Location: Denver"
-  )
-);
+var user = {
+  name: "Devon",
+  cities: ["Dallas", "Denver", "Austin"],
+  // Below is the ES6 ways of creating methods
+  printPlacesLived: function printPlacesLived() {
+    var _this = this;
 
-var appRoot = document.getElementById("app");
+    console.log(this.name);
+    console.log(this.cities);
+    return this.cities.map(function (city) {
+      return _this.name + " has lived in " + city + "!";
+    });
+  }
+};
 
-ReactDOM.render(templateTwo, appRoot);
+var multiplier = {
+  arr: [2, 5, 7],
+  multiplyBy: 10,
+  multiply: function multiply() {
+    var _this2 = this;
+
+    return this.arr.map(function (num) {
+      return num * _this2.multiplyBy;
+    });
+  }
+};
+
+console.log(user.printPlacesLived());
+console.log(multiplier.multiply());
