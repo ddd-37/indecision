@@ -1,38 +1,91 @@
 "use strict";
 
-var add = function add(a, b) {
-  //console.log(arguments);
-  return a + b;
+console.log("apfp");
+
+/// JSX JavaScript XML
+var app = {
+  title: "Indesicon App",
+  subTitle: "This is some info",
+  options: []
 };
 
-console.log(add(20, 5, 500));
+var appRoot = document.getElementById("app");
 
-var user = {
-  name: "Devon",
-  cities: ["Dallas", "Denver", "Austin"],
-  // Below is the ES6 ways of creating methods
-  printPlacesLived: function printPlacesLived() {
-    var _this = this;
+var onFormSubmit = function onFormSubmit(e) {
+  e.preventDefault();
 
-    console.log(this.name);
-    console.log(this.cities);
-    return this.cities.map(function (city) {
-      return _this.name + " has lived in " + city + "!";
-    });
+  var option = e.target.elements.option.value;
+
+  if (option) {
+    app.options.push(option);
+    e.target.elements.option.value = "";
   }
+
+  console.log("form submitted!", option);
+  render();
 };
 
-var multiplier = {
-  arr: [2, 5, 7],
-  multiplyBy: 10,
-  multiply: function multiply() {
-    var _this2 = this;
-
-    return this.arr.map(function (num) {
-      return num * _this2.multiplyBy;
-    });
-  }
+var removeAllClick = function removeAllClick() {
+  app.options = [];
+  render();
 };
 
-console.log(user.printPlacesLived());
-console.log(multiplier.multiply());
+var render = function render() {
+  var template = React.createElement(
+    "div",
+    null,
+    React.createElement(
+      "h1",
+      null,
+      app.title
+    ),
+    app.subTitle && React.createElement(
+      "p",
+      null,
+      app.subTitle
+    ),
+    React.createElement(
+      "p",
+      null,
+      app.options.length > 0 ? "Here are your options" : "No Options"
+    ),
+    React.createElement(
+      "p",
+      null,
+      app.options.length
+    ),
+    React.createElement(
+      "button",
+      { onClick: removeAllClick },
+      "Remove All"
+    ),
+    React.createElement(
+      "ol",
+      null,
+      React.createElement(
+        "li",
+        null,
+        "List Item 1"
+      ),
+      React.createElement(
+        "li",
+        null,
+        "List Item 2"
+      )
+    ),
+    React.createElement(
+      "form",
+      { onSubmit: onFormSubmit },
+      React.createElement("input", { type: "text", name: "option" }),
+      React.createElement(
+        "button",
+        null,
+        "Add Option"
+      )
+    )
+  );
+
+  ReactDOM.render(template, appRoot);
+};
+
+render();

@@ -3,40 +3,51 @@ console.log("apfp");
 /// JSX JavaScript XML
 var app = {
   title: "Indesicon App",
-  subTitle: "This is some info"
+  subTitle: "This is some info",
+  options: []
 };
 
-var template = (
-  <div>
-    <h1>{app.title}</h1>
-    <p>{app.subTitle}</p>
-    <ol>
-      <li>List Item 1</li>
-      <li>List Item 2</li>
-    </ol>
-  </div>
-);
+const appRoot = document.getElementById("app");
 
-var user = {
-  name: "Devon Deason",
-  age: 37,
-  location: "Denver Colorado"
-};
+const onFormSubmit = e => {
+  e.preventDefault();
 
-function getLocation(location) {
-  if (location) {
-    return <p>Location: {location}</p>;
+  const option = e.target.elements.option.value;
+
+  if (option) {
+    app.options.push(option);
+    e.target.elements.option.value = "";
   }
-}
 
-var templateTwo = (
-  <div>
-    <h1>{user.name}</h1>
-    <p>Age: {user.age}</p>
-    {getLocation(user.location)}
-  </div>
-);
+  console.log("form submitted!", option);
+  render();
+};
 
-var appRoot = document.getElementById("app");
+const removeAllClick = () => {
+  app.options = [];
+  render();
+};
 
-ReactDOM.render(templateTwo, appRoot);
+const render = () => {
+  var template = (
+    <div>
+      <h1>{app.title}</h1>
+      {app.subTitle && <p>{app.subTitle}</p>}
+      <p>{app.options.length > 0 ? "Here are your options" : "No Options"}</p>
+      <p>{app.options.length}</p>
+      <button onClick={removeAllClick}>Remove All</button>
+      <ol>
+        <li>List Item 1</li>
+        <li>List Item 2</li>
+      </ol>
+      <form onSubmit={onFormSubmit}>
+        <input type="text" name="option" />
+        <button>Add Option</button>
+      </form>
+    </div>
+  );
+
+  ReactDOM.render(template, appRoot);
+};
+
+render();
