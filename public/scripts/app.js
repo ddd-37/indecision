@@ -30,6 +30,11 @@ var removeAllClick = function removeAllClick() {
   render();
 };
 
+var onMakeDecision = function onMakeDecision() {
+  var option = app.options[Math.floor(Math.random() * app.options.length)];
+  console.log("TCL: onMakeDecision -> option", option);
+};
+
 var render = function render() {
   var template = React.createElement(
     "div",
@@ -50,9 +55,9 @@ var render = function render() {
       app.options.length > 0 ? "Here are your options" : "No Options"
     ),
     React.createElement(
-      "p",
-      null,
-      app.options.length
+      "button",
+      { disabled: app.options.length === 0, onClick: onMakeDecision },
+      "What should I do"
     ),
     React.createElement(
       "button",
@@ -62,16 +67,13 @@ var render = function render() {
     React.createElement(
       "ol",
       null,
-      React.createElement(
-        "li",
-        null,
-        "List Item 1"
-      ),
-      React.createElement(
-        "li",
-        null,
-        "List Item 2"
-      )
+      app.options.map(function (option) {
+        return React.createElement(
+          "li",
+          { key: option },
+          option
+        );
+      })
     ),
     React.createElement(
       "form",

@@ -28,17 +28,25 @@ const removeAllClick = () => {
   render();
 };
 
+const onMakeDecision = () => {
+  const option = app.options[Math.floor(Math.random() * app.options.length)];
+  console.log("TCL: onMakeDecision -> option", option);
+};
+
 const render = () => {
   var template = (
     <div>
       <h1>{app.title}</h1>
       {app.subTitle && <p>{app.subTitle}</p>}
       <p>{app.options.length > 0 ? "Here are your options" : "No Options"}</p>
-      <p>{app.options.length}</p>
+      <button disabled={app.options.length === 0} onClick={onMakeDecision}>
+        What should I do
+      </button>
       <button onClick={removeAllClick}>Remove All</button>
       <ol>
-        <li>List Item 1</li>
-        <li>List Item 2</li>
+        {app.options.map(option => {
+          return <li key={option}>{option}</li>;
+        })}
       </ol>
       <form onSubmit={onFormSubmit}>
         <input type="text" name="option" />
