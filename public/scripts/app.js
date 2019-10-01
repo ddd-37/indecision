@@ -172,23 +172,21 @@ var AddOptions = function (_React$Component6) {
     key: "handleAddOption",
     value: function handleAddOption(e) {
       e.preventDefault();
-      if (e.target.elements[0].value) {
-        console.log(e.target.elements[0].value);
+      var option = e.target.elements.option.value.trim();
+      if (option) {
+        console.log(option);
+        e.target.elements.option.value = "";
       }
     }
   }, {
     key: "render",
     value: function render() {
-      var _this7 = this;
-
       return React.createElement(
         "div",
         null,
         React.createElement(
           "form",
-          { onSubmit: function onSubmit(e) {
-              return _this7.handleAddOption(e);
-            } },
+          { onSubmit: this.handleAddOption },
           React.createElement(
             "p",
             null,
@@ -209,3 +207,6 @@ var AddOptions = function (_React$Component6) {
 }(React.Component);
 
 ReactDOM.render(React.createElement(IndecisionApp, null), document.getElementById("app"));
+
+// Babel
+// babel src/app.js --out=file=public/scripts/app.js --presets=env,react --watch

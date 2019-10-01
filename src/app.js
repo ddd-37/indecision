@@ -64,14 +64,16 @@ class Option extends React.Component {
 class AddOptions extends React.Component {
   handleAddOption(e) {
     e.preventDefault();
-    if (e.target.elements[0].value) {
-      console.log(e.target.elements[0].value);
+    const option = e.target.elements.option.value.trim();
+    if (option) {
+      console.log(option);
+      e.target.elements.option.value = "";
     }
   }
   render() {
     return (
       <div>
-        <form onSubmit={e => this.handleAddOption(e)}>
+        <form onSubmit={this.handleAddOption}>
           <p>Add options Component</p>
           <input type="text" name="option" />
           <button>Add Option</button>
@@ -82,3 +84,6 @@ class AddOptions extends React.Component {
 }
 
 ReactDOM.render(<IndecisionApp />, document.getElementById("app"));
+
+// Babel
+// babel src/app.js --out=file=public/scripts/app.js --presets=env,react --watch
