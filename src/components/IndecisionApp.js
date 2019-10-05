@@ -5,16 +5,9 @@ import Action from "./Action";
 import Options from "./Options";
 
 class IndecisionApp extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      options: props.options
-    };
-    this.handleDeleteOptions = this.handleDeleteOptions.bind(this);
-    this.handlePick = this.handlePick.bind(this);
-    this.handleAddOption = this.handleAddOption.bind(this);
-    this.handleDeleteOption = this.handleDeleteOption.bind(this);
-  }
+  state = {
+    options: this.props.options
+  };
 
   componentDidMount() {
     try {
@@ -42,24 +35,24 @@ class IndecisionApp extends React.Component {
     console.log("componentWillUnmount");
   }
 
-  handleDeleteOptions() {
+  handleDeleteOptions = () => {
     this.setState(() => ({ options: [] }));
-  }
+  };
 
-  handleDeleteOption(optionToRemove) {
+  handleDeleteOption = optionToRemove => {
     this.setState(prevState => ({
       options: prevState.options.filter(option => {
         return optionToRemove !== option;
       })
     }));
-  }
+  };
 
-  handlePick() {
+  handlePick = () => {
     const randNum = Math.floor(Math.random() * this.state.options.length);
     alert(this.state.options[randNum]);
-  }
+  };
 
-  handleAddOption(option) {
+  handleAddOption = option => {
     // Handle our error for blank entries right here
     if (!option) {
       return "Please enter some text";
@@ -70,7 +63,7 @@ class IndecisionApp extends React.Component {
     }
 
     this.setState(prevState => ({ options: prevState.options.concat(option) }));
-  }
+  };
 
   render() {
     const subtitle = "Put your life in the hands of a computer";
