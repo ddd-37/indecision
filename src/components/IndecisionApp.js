@@ -6,7 +6,7 @@ import Options from "./Options";
 
 class IndecisionApp extends React.Component {
   state = {
-    options: this.props.options
+    options: []
   };
 
   componentDidMount() {
